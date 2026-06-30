@@ -1,0 +1,37 @@
+{
+  "criteria": {
+    "has_lava_gen": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mwgr:lava_generator"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.mwgr.get_lava_gen.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "item": "mwgr:lava_generator"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.mwgr.get_lava_gen.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_lava_gen"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

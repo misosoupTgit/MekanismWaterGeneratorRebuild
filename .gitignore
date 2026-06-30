@@ -1,0 +1,7 @@
+.idea
+.gradle
+bin
+build
+gradle
+run
+run-data

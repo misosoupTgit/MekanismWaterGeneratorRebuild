@@ -1,0 +1,37 @@
+{
+  "criteria": {
+    "has_water_gen": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mwgr:water_generator"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.mwgr.get_water_gen.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "item": "mwgr:water_generator"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.mwgr.get_water_gen.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_water_gen"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

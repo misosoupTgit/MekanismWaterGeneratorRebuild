@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "mwgr:block/lava_generator" }
+  }
+}

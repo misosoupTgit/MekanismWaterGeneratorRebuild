@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "mwgr:block/water_generator" }
+  }
+}
