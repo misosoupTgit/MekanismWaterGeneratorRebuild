@@ -1,11 +1,8 @@
 package com.github.misosoupTgit.mwgr.compat;
 
-import com.github.misosoupTgit.mwgr.MWGRLang;
 import com.github.misosoupTgit.mwgr.MWGRMod;
 import com.github.misosoupTgit.mwgr.block.FluidGeneratorBlock;
 import com.github.misosoupTgit.mwgr.block.FluidGeneratorBlockEntity;
-import mekanism.api.text.EnumColor;
-import mekanism.common.MekanismLang;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import snownee.jade.api.BlockAccessor;
@@ -27,10 +24,9 @@ public class JadeCompat implements IWailaPlugin {
             public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {
                 if (accessor.getBlockEntity() instanceof FluidGeneratorBlockEntity generator) {
                     boolean autoEject = generator.isAutoEject();
-                    tooltip.add(MWGRLang.STATS_AUTO_EJECT.translate(
-                            autoEject ? MekanismLang.ON.translateColored(EnumColor.BRIGHT_GREEN)
-                                      : MekanismLang.OFF.translateColored(EnumColor.RED)
-                    ));
+                    if (MekanismCompat.isMekanismLoaded()) {
+                        tooltip.add(MekanismCompat.getAutoEjectTooltip(autoEject));
+                    }
                 }
             }
 

@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "mekanismgenerators"
+    }
+  ],
+  "pattern": [
+    "FGF",
+    "GMG",
+    "FGF"
+  ],
+  "key": {
+    "F": {
+      "item": "mekanismgenerators:fusion_reactor_frame"
+    },
+    "G": {
+      "item": "mekanismgenerators:reactor_glass"
+    },
+    "M": {
+      "item": "mwgr:water_generator"
+    }
+  },
+  "result": {
+    "item": "mwgr:heavywater_generator",
+    "count": 1
+  }
+}

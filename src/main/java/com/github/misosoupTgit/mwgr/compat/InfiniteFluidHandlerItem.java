@@ -14,6 +14,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -29,17 +30,17 @@ import java.util.List;
  * Mekanism等のGUIスロットで無限に液体を提供するアイテムクラス
  */
 public class InfiniteFluidHandlerItem extends MWGRColorBlockItems {
-    private final Fluid fluid;
+    private final java.util.function.Supplier<Fluid> fluidSupplier;
 
     public InfiniteFluidHandlerItem(Block block, Properties properties, String hexColorString, boolean isBold,
-            Fluid fluid) {
+            java.util.function.Supplier<Fluid> fluidSupplier) {
         super(block, properties, hexColorString, isBold);
-        this.fluid = fluid;
+        this.fluidSupplier = fluidSupplier;
     }
 
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
-        return new InfiniteFluidCapability(stack, fluid);
+        return new InfiniteFluidCapability(stack, fluidSupplier);
     }
 
     @Override
@@ -62,18 +63,19 @@ public class InfiniteFluidHandlerItem extends MWGRColorBlockItems {
     protected void addDetails(@NotNull ItemStack stack, @Nullable Level world, @NotNull List<Component> tooltip,
             @NotNull TooltipFlag flag) {
         // 詳細表示
-        FluidStack fluidStack = new FluidStack(this.fluid, Integer.MAX_VALUE);
+        Fluid fluid = this.fluidSupplier.get();
+        FluidStack fluidStack = new FluidStack(fluid == null ? Fluids.EMPTY : fluid, Integer.MAX_VALUE);
         tooltip.add(MekanismLang.GENERIC_STORED_MB.translateColored(EnumColor.PINK, fluidStack, EnumColor.GRAY, TextUtils.format(fluidStack.getAmount())));
     }
 
     private static class InfiniteFluidCapability implements IFluidHandlerItem, ICapabilityProvider {
         private final ItemStack container;
-        private final Fluid fluid;
+        private final java.util.function.Supplier<Fluid> fluidSupplier;
         private final LazyOptional<IFluidHandlerItem> holder = LazyOptional.of(() -> this);
 
-        public InfiniteFluidCapability(ItemStack container, Fluid fluid) {
+        public InfiniteFluidCapability(ItemStack container, java.util.function.Supplier<Fluid> fluidSupplier) {
             this.container = container;
-            this.fluid = fluid;
+            this.fluidSupplier = fluidSupplier;
         }
 
         @Override
@@ -89,7 +91,8 @@ public class InfiniteFluidHandlerItem extends MWGRColorBlockItems {
         @NotNull
         @Override
         public FluidStack getFluidInTank(int tank) {
-            return new FluidStack(fluid, Integer.MAX_VALUE);
+            Fluid fluid = fluidSupplier.get();
+            return new FluidStack(fluid == null ? Fluids.EMPTY : fluid, Integer.MAX_VALUE);
         }
 
         @Override
@@ -99,7 +102,8 @@ public class InfiniteFluidHandlerItem extends MWGRColorBlockItems {
 
         @Override
         public boolean isFluidValid(int tank, @NotNull FluidStack stack) {
-            return stack.getFluid().isSame(fluid);
+            Fluid fluid = fluidSupplier.get();
+            return fluid != null && stack.getFluid().isSame(fluid);
         }
 
         @Override
@@ -110,13 +114,15 @@ public class InfiniteFluidHandlerItem extends MWGRColorBlockItems {
         @NotNull
         @Override
         public FluidStack drain(int maxDrain, FluidAction action) {
-            return new FluidStack(fluid, maxDrain);
+            Fluid fluid = fluidSupplier.get();
+            return new FluidStack(fluid == null ? Fluids.EMPTY : fluid, maxDrain);
         }
 
         @NotNull
         @Override
         public FluidStack drain(FluidStack resource, FluidAction action) {
-            if (resource.isEmpty() || !resource.getFluid().isSame(fluid))
+            Fluid fluid = fluidSupplier.get();
+            if (fluid == null || resource.isEmpty() || !resource.getFluid().isSame(fluid))
                 return FluidStack.EMPTY;
             return drain(resource.getAmount(), action);
         }

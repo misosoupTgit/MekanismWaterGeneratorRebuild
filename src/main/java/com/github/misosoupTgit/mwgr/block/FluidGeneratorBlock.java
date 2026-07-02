@@ -2,8 +2,6 @@ package com.github.misosoupTgit.mwgr.block;
 
 import com.github.misosoupTgit.mwgr.compat.MekanismCompat;
 import com.github.misosoupTgit.mwgr.compat.MekanismIntegration;
-import mekanism.common.block.interfaces.IHasDescription;
-import mekanism.api.text.ILangEntry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -27,16 +25,20 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
-public class FluidGeneratorBlock extends Block implements EntityBlock, IHasDescription {
+public class FluidGeneratorBlock extends Block implements EntityBlock {
     private final Supplier<BlockEntityType<FluidGeneratorBlockEntity>> typeSupplier;
-    private final Fluid fluid;
-    private final ILangEntry description;
+    private final Supplier<Fluid> fluidSupplier;
+    protected final String descriptionKey;
 
-    public FluidGeneratorBlock(Properties props, Supplier<BlockEntityType<FluidGeneratorBlockEntity>> typeSupplier, Fluid fluid, ILangEntry description) {
+    public FluidGeneratorBlock(Properties props, Supplier<BlockEntityType<FluidGeneratorBlockEntity>> typeSupplier, Supplier<Fluid> fluidSupplier, String descriptionKey) {
         super(props);
         this.typeSupplier = typeSupplier;
-        this.fluid = fluid;
-        this.description = description;
+        this.fluidSupplier = fluidSupplier;
+        this.descriptionKey = descriptionKey;
+    }
+
+    public Fluid getFluid() {
+        return fluidSupplier.get();
     }
 
     @Override
@@ -44,13 +46,14 @@ public class FluidGeneratorBlock extends Block implements EntityBlock, IHasDescr
                                           @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
         ItemStack stack = player.getItemInHand(hand);
 
-        // バケツ処理[cite: 10]
+        // バケツ処理
+        Fluid currentFluid = getFluid();
         if (stack.is(Items.BUCKET)) {
-            if (this.fluid == Fluids.WATER) {
+            if (currentFluid == Fluids.WATER) {
                 level.playSound(player, pos, SoundEvents.BUCKET_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
                 player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, new ItemStack(Items.WATER_BUCKET)));
                 return InteractionResult.sidedSuccess(level.isClientSide());
-            } else if (this.fluid == Fluids.LAVA) {
+            } else if (currentFluid == Fluids.LAVA) {
                 level.playSound(player, pos, SoundEvents.BUCKET_FILL_LAVA, SoundSource.BLOCKS, 1.0F, 1.0F);
                 player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, new ItemStack(Items.LAVA_BUCKET)));
                 return InteractionResult.sidedSuccess(level.isClientSide());
@@ -80,8 +83,7 @@ public class FluidGeneratorBlock extends Block implements EntityBlock, IHasDescr
         };
     }
 
-    @Override
-    public ILangEntry getDescription() {
-        return description;
+    public String getDescriptionKey() {
+        return descriptionKey;
     }
 }

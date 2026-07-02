@@ -1,3 +1,4 @@
-// 1.20.1	2026-03-26T22:59:08.5081425	Loot Tables
+// 1.20.1	2026-07-03T00:13:09.6865948	Loot Tables
+ddc2d08650f2f6ee72245d275e229dd3a7f7c85c data/mwgr/loot_tables/blocks/heavywater_generator.json
 53a03ffe24f1ab340dac8d874f753775e208090b data/mwgr/loot_tables/blocks/lava_generator.json
 0eff8375b4deb97436a688ee0b18936dfddfcd08 data/mwgr/loot_tables/blocks/water_generator.json

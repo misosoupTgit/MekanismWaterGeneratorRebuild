@@ -75,6 +75,8 @@ dependencies {
 
     runtimeOnly fg.deobf("curse.maven:mekanism-268560:6552911")
     compileOnly fg.deobf("curse.maven:mekanism-268560:6552911")
+    runtimeOnly fg.deobf("curse.maven:mekanism-generators-268566:6552914")
+    compileOnly fg.deobf("curse.maven:mekanism-generators-268566:6552914")
 
     runtimeOnly fg.deobf("curse.maven:jade-324717:6855440")
     compileOnly fg.deobf("curse.maven:jade-324717:6855440")

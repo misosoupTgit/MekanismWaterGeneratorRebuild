@@ -11,6 +11,7 @@ public enum MWGRLang implements ILangEntry {
     CTRL("tooltip", "ctrl"),
     DESCRIPTION_WATER_GENERATOR("description", "water_generator"),
     DESCRIPTION_LAVA_GENERATOR("description", "lava_generator"),
+    DESCRIPTION_HEAVY_WATER_GENERATOR("description", "heavywater_generator"),
     STATS_AUTO_EJECT("stats", "auto_eject");
 
     private final String key;

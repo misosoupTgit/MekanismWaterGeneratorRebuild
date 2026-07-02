@@ -32,6 +32,7 @@ public class MWGRMod {
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.REDSTONE_BLOCKS) {
             event.accept(MWGRBlocks.WATER_GENERATOR.get());
+            event.accept(MWGRBlocks.HEAVY_WATER_GENERATOR.get());
             event.accept(MWGRBlocks.LAVA_GENERATOR.get());
         }
     }

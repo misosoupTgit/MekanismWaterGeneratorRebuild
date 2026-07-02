@@ -1,0 +1,37 @@
+{
+  "criteria": {
+    "has_heavywater_gen": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mwgr:heavywater_generator"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.mwgr.get_heavywater_gen.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "item": "mwgr:heavywater_generator"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.mwgr.get_heavywater_gen.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_heavywater_gen"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

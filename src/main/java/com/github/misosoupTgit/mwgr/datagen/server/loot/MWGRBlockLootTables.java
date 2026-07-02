@@ -18,6 +18,7 @@ public class MWGRBlockLootTables extends BlockLootSubProvider {
     protected void generate() {
         this.dropSelf(MWGRBlocks.WATER_GENERATOR.get());
         this.dropSelf(MWGRBlocks.LAVA_GENERATOR.get());
+        this.dropSelf(MWGRBlocks.HEAVY_WATER_GENERATOR.get());
     }
 
     @Override

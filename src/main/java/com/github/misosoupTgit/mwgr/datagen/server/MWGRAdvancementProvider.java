@@ -21,19 +21,17 @@ public class MWGRAdvancementProvider implements ForgeAdvancementProvider.Advance
     @Override
     public void generate(HolderLookup.@NotNull Provider registries, @NotNull Consumer<Advancement> saver, @NotNull ExistingFileHelper existingFileHelper) {
 
-        // 水ジェネレーターの実績 (目標/Goal ランク)
         Advancement.Builder.advancement()
                 .display(new DisplayInfo(
                         new ItemStack(MWGRBlocks.WATER_GENERATOR.get()),
                         Component.translatable("advancements.mwgr.get_water_gen.title"),
                         Component.translatable("advancements.mwgr.get_water_gen.description"),
                         null,
-                        FrameType.GOAL, // これでタイトルが緑色になる
+                        FrameType.GOAL,
                         true, true, false))
                 .addCriterion("has_water_gen", InventoryChangeTrigger.TriggerInstance.hasItems(MWGRBlocks.WATER_GENERATOR.get()))
                 .save(saver, ResourceLocation.fromNamespaceAndPath(MWGRMod.MOD_ID, "get_water_gen").toString());
 
-        // 溶岩ジェネレーターの実績 (目標/Goal ランク)
         Advancement.Builder.advancement()
                 .display(new DisplayInfo(
                         new ItemStack(MWGRBlocks.LAVA_GENERATOR.get()),
@@ -44,5 +42,16 @@ public class MWGRAdvancementProvider implements ForgeAdvancementProvider.Advance
                         true, true, false))
                 .addCriterion("has_lava_gen", InventoryChangeTrigger.TriggerInstance.hasItems(MWGRBlocks.LAVA_GENERATOR.get()))
                 .save(saver, ResourceLocation.fromNamespaceAndPath(MWGRMod.MOD_ID, "get_lava_gen").toString());
+
+        Advancement.Builder.advancement()
+                .display(new DisplayInfo(
+                        new ItemStack(MWGRBlocks.HEAVY_WATER_GENERATOR.get()),
+                        Component.translatable("advancements.mwgr.get_heavywater_gen.title"),
+                        Component.translatable("advancements.mwgr.get_heavywater_gen.description"),
+                        null,
+                        FrameType.GOAL,
+                        true, true, false))
+                .addCriterion("has_heavywater_gen", InventoryChangeTrigger.TriggerInstance.hasItems(MWGRBlocks.HEAVY_WATER_GENERATOR.get()))
+                .save(saver, ResourceLocation.fromNamespaceAndPath(MWGRMod.MOD_ID, "get_heavywater_gen").toString());
     }
 }
