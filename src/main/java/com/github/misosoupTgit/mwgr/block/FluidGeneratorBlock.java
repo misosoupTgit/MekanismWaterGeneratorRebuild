@@ -30,7 +30,8 @@ public class FluidGeneratorBlock extends Block implements EntityBlock {
     private final Supplier<Fluid> fluidSupplier;
     protected final String descriptionKey;
 
-    public FluidGeneratorBlock(Properties props, Supplier<BlockEntityType<FluidGeneratorBlockEntity>> typeSupplier, Supplier<Fluid> fluidSupplier, String descriptionKey) {
+    public FluidGeneratorBlock(Properties props, Supplier<BlockEntityType<FluidGeneratorBlockEntity>> typeSupplier,
+            Supplier<Fluid> fluidSupplier, String descriptionKey) {
         super(props);
         this.typeSupplier = typeSupplier;
         this.fluidSupplier = fluidSupplier;
@@ -43,7 +44,7 @@ public class FluidGeneratorBlock extends Block implements EntityBlock {
 
     @Override
     public @NotNull InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos,
-                                          @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+            @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
         ItemStack stack = player.getItemInHand(hand);
 
         // バケツ処理
@@ -51,16 +52,17 @@ public class FluidGeneratorBlock extends Block implements EntityBlock {
         if (stack.is(Items.BUCKET)) {
             if (currentFluid == Fluids.WATER) {
                 level.playSound(player, pos, SoundEvents.BUCKET_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
-                player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, new ItemStack(Items.WATER_BUCKET)));
+                player.setItemInHand(hand,
+                        ItemUtils.createFilledResult(stack, player, new ItemStack(Items.WATER_BUCKET)));
                 return InteractionResult.sidedSuccess(level.isClientSide());
             } else if (currentFluid == Fluids.LAVA) {
                 level.playSound(player, pos, SoundEvents.BUCKET_FILL_LAVA, SoundSource.BLOCKS, 1.0F, 1.0F);
-                player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, new ItemStack(Items.LAVA_BUCKET)));
+                player.setItemInHand(hand,
+                        ItemUtils.createFilledResult(stack, player, new ItemStack(Items.LAVA_BUCKET)));
                 return InteractionResult.sidedSuccess(level.isClientSide());
             }
         }
 
-        // Mekanism互換処理 (コンフィギュレーター等の操作)[cite: 10]
         if (MekanismCompat.isMekanismLoaded()) {
             return MekanismIntegration.handleConfigurator(level, pos, player, hand, this);
         }
@@ -74,8 +76,8 @@ public class FluidGeneratorBlock extends Block implements EntityBlock {
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
-        // サーバーサイドでのみ搬出処理を登録
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state,
+            @NotNull BlockEntityType<T> type) {
         return level.isClientSide ? null : (lvl, pos, st, be) -> {
             if (be instanceof FluidGeneratorBlockEntity generatorBE) {
                 generatorBE.serverTick();

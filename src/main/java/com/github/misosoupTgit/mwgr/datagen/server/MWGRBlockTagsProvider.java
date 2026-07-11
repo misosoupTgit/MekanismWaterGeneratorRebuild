@@ -13,7 +13,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.concurrent.CompletableFuture;
 
 public class MWGRBlockTagsProvider extends BlockTagsProvider {
-    public MWGRBlockTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper) {
+    public MWGRBlockTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider,
+            @Nullable ExistingFileHelper existingFileHelper) {
         super(output, lookupProvider, MWGRMod.MOD_ID, existingFileHelper);
     }
 
@@ -21,6 +22,7 @@ public class MWGRBlockTagsProvider extends BlockTagsProvider {
     protected void addTags(HolderLookup.@NotNull Provider provider) {
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(MWGRBlocks.WATER_GENERATOR.get())
-                .add(MWGRBlocks.LAVA_GENERATOR.get());
+                .add(MWGRBlocks.LAVA_GENERATOR.get())
+                .add(MWGRBlocks.HEAVY_WATER_GENERATOR.get());
     }
 }
