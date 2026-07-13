@@ -1,6 +1,7 @@
 {
   "values": [
     "mwgr:water_generator",
-    "mwgr:lava_generator"
+    "mwgr:lava_generator",
+    "mwgr:heavywater_generator"
   ]
 }

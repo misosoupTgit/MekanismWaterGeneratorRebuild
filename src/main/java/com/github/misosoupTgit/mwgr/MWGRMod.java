@@ -17,8 +17,9 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 public class MWGRMod {
     public static final String MOD_ID = "mwgr";
 
-    public MWGRMod() {
-        IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+    @SuppressWarnings("removal")
+    public MWGRMod(FMLJavaModLoadingContext context) {
+        IEventBus bus = context.getModEventBus();
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, MWGRConfig.SPEC);
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, MWGRClientConfig.SPEC);
@@ -39,6 +40,6 @@ public class MWGRMod {
     }
 
     public static net.minecraft.resources.ResourceLocation rl(String path) {
-        return new net.minecraft.resources.ResourceLocation(MOD_ID, path);
+        return net.minecraft.resources.ResourceLocation.tryBuild(MOD_ID, path);
     }
 }
