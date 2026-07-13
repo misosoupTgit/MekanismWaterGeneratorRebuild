@@ -18,11 +18,9 @@ public class MekanismIntegration {
         ItemStack stack = player.getItemInHand(hand);
 
         if (stack.getItem() instanceof ItemConfigurator configurator) {
-            // モード名を文字列で取得することで、Enumの不一致によるクラッシュを回避
             String modeName = configurator.getMode(stack).name();
             boolean isWrench = modeName.equals("WRENCH");
 
-            // WRENCHモードかつスニーク時に回収
             if (isWrench && player.isShiftKeyDown()) {
                 if (!level.isClientSide) {
                     level.removeBlock(pos, false);
@@ -31,7 +29,6 @@ public class MekanismIntegration {
                 return InteractionResult.sidedSuccess(level.isClientSide());
             }
 
-            // 自動搬出の切り替え判定
             boolean canToggle = MWGRConfig.ALLOW_ALL_MODES.get() || isWrench;
 
             if (canToggle && !player.isShiftKeyDown()) {

@@ -14,7 +14,8 @@ import java.util.function.Supplier;
 
 public class MekanismCompat {
     public static final String MEKANISM_MODID = "mekanism";
-    public static final ResourceLocation HEAVY_WATER_RL = ResourceLocation.fromNamespaceAndPath(MEKANISM_MODID, "heavy_water");
+    public static final ResourceLocation HEAVY_WATER_RL = ResourceLocation.fromNamespaceAndPath(MEKANISM_MODID,
+            "heavy_water");
 
     public static boolean isMekanismLoaded() {
         return ModList.get().isLoaded(MEKANISM_MODID);
@@ -37,7 +38,8 @@ public class MekanismCompat {
         if (isMekanismLoaded()) {
             return MekanismRealImpl.createBlock(props, typeSupplier, fluidSupplier, descriptionKey);
         }
-        return new com.github.misosoupTgit.mwgr.block.FluidGeneratorBlock(props, typeSupplier, fluidSupplier, descriptionKey);
+        return new com.github.misosoupTgit.mwgr.block.FluidGeneratorBlock(props, typeSupplier, fluidSupplier,
+                descriptionKey);
     }
 
     public static Item createInfiniteFluidHandlerItem(
@@ -59,7 +61,6 @@ public class MekanismCompat {
         return net.minecraft.network.chat.Component.empty();
     }
 
-    // MekanismがロードされているときのみJVMによってロードされるインナークラス
     private static class MekanismRealImpl {
         static Fluid getHeavyWater() {
             Fluid fluid = ForgeRegistries.FLUIDS.getValue(HEAVY_WATER_RL);
@@ -85,9 +86,9 @@ public class MekanismCompat {
 
         static net.minecraft.network.chat.Component getAutoEjectTooltip(boolean autoEject) {
             return com.github.misosoupTgit.mwgr.MWGRLang.STATS_AUTO_EJECT.translate(
-                    autoEject ? mekanism.common.MekanismLang.ON.translateColored(mekanism.api.text.EnumColor.BRIGHT_GREEN)
-                              : mekanism.common.MekanismLang.OFF.translateColored(mekanism.api.text.EnumColor.RED)
-            );
+                    autoEject
+                            ? mekanism.common.MekanismLang.ON.translateColored(mekanism.api.text.EnumColor.BRIGHT_GREEN)
+                            : mekanism.common.MekanismLang.OFF.translateColored(mekanism.api.text.EnumColor.RED));
         }
     }
 }

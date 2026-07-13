@@ -26,9 +26,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-/**
- * Mekanism等のGUIスロットで無限に液体を提供するアイテムクラス
- */
 public class InfiniteFluidHandlerItem extends MWGRColorBlockItems {
     private final java.util.function.Supplier<Fluid> fluidSupplier;
 
@@ -62,10 +59,10 @@ public class InfiniteFluidHandlerItem extends MWGRColorBlockItems {
 
     protected void addDetails(@NotNull ItemStack stack, @Nullable Level world, @NotNull List<Component> tooltip,
             @NotNull TooltipFlag flag) {
-        // 詳細表示
         Fluid fluid = this.fluidSupplier.get();
         FluidStack fluidStack = new FluidStack(fluid == null ? Fluids.EMPTY : fluid, Integer.MAX_VALUE);
-        tooltip.add(MekanismLang.GENERIC_STORED_MB.translateColored(EnumColor.PINK, fluidStack, EnumColor.GRAY, TextUtils.format(fluidStack.getAmount())));
+        tooltip.add(MekanismLang.GENERIC_STORED_MB.translateColored(EnumColor.PINK, fluidStack, EnumColor.GRAY,
+                TextUtils.format(fluidStack.getAmount())));
     }
 
     private static class InfiniteFluidCapability implements IFluidHandlerItem, ICapabilityProvider {

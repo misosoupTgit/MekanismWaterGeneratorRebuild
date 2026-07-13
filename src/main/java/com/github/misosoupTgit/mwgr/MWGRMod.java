@@ -2,6 +2,7 @@ package com.github.misosoupTgit.mwgr;
 
 import com.github.misosoupTgit.mwgr.block.MWGRBlockEntities;
 import com.github.misosoupTgit.mwgr.block.MWGRBlocks;
+import com.github.misosoupTgit.mwgr.config.MWGRClientConfig;
 import com.github.misosoupTgit.mwgr.config.MWGRConfig;
 import com.github.misosoupTgit.mwgr.item.MWGRItems;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -20,12 +21,12 @@ public class MWGRMod {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, MWGRConfig.SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, MWGRClientConfig.SPEC);
 
         MWGRBlocks.register(bus);
         MWGRItems.register(bus);
         MWGRBlockEntities.register(bus);
 
-        // レッドストーンタブへの追加イベントを登録
         bus.addListener(this::addCreative);
     }
 
